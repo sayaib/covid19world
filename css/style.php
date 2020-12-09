@@ -9,12 +9,37 @@ box-sizing: border-box;
 font-family: 'Mulish', sans-serif;
 }
 
+/* ******************************** responsive mobile view **************************** */
+@media only screen and (max-width: 980px) {
+  body {
+
+  }
+  p{
+    font-size: 23px;
+  }
+  .navbar-brand{
+    font-size: 2.5rem;
+  }
+  .nav-link{
+    font-size: 1.8rem;
+    text-align: center;
+  }
+  .about_corona{
+    padding-top: 14rem;
+  }
+}
+
 .nav_style{
   background-color: #a29bfe;
 }
 .nav_style a{
   color: white;
 }
+.live{
+  font-size: 2.3rem;
+  padding-bottom: 1.3rem;
+}
+
 
 .main_header{
   height: 450px;
@@ -60,11 +85,43 @@ width: 80%;
 
 /* ***************************** Footer *************************** */
 
-.footer_style{
+footer{
   background-color: #a29bfe;
 }
 .footer_style p{
   margin-bottom: 0;
+}
+.fab{
+  color: #000000;
+  padding: 1rem;
+}
+.sourcecode{
+  color: grey;
+  text-decoration: none;
+}
+.sourcecode:hover{
+  color: #fff;
+}
+.copyright{
+  color: #000000;
+}
+
+#myBtn{
+  display: none;
+  position: fixed;
+  bottom: 30px;
+  right: 40px;
+  z-index: 99;
+  border: none;
+  outline: none;
+  background-color:  #ff7675;
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 25px;
+}
+#myBtn:hover{
+  background: #606060;
 }
 
 

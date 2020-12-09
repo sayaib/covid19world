@@ -6,9 +6,9 @@
     <?php include 'link/links.php'; ?>
     <?php include 'css/style.php'; ?>
   </head>
-  <body>
+  <body onload="fetch()">
     <!-- ***************************************** Navigation Bar ***************************** -->
-    <nav class="navbar navbar-expand-lg nav_style p-3">
+    <nav class="navbar navbar-expand-lg navbar navbar navbar-light bg-light p-4">
   <a class="navbar-brand pl-5" href="#">COVID-19</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -32,6 +32,8 @@
         <a class="nav-link" href="#contact">Contact</a>
       </li>
 
+
+
     </ul>
   </div>
 </nav>
@@ -54,29 +56,27 @@
 
 <!-- ****************************************** Corona Latest Update **************************** -->
 
-<section class="corona_update">
+<section class="corona_update container-fluid">
 <div class="mb-3">
-  <h3 class="text-uppercase text-center">covid-19 updates</h3>
+  <h3 class="text-uppercase text-center live">covid-19 world live updates</h3>
 </div>
-<div class="d-flex justify-content-around align-iteams-center">
-  <div class="">
-    <h1 class="count">1,524,266</h1>
-    <p>Passenger screened at airport</p>
-  </div>
-  <div class="">
-    <h1 class="count">512</h1>
-    <p>Active COVID-19 cases*</p>
-  </div>
-  <div class="">
-    <h1 class="count">40</h1>
-    <p>Cured/discharged cases</p>
-  </div>
-  <div class="">
-    <h1 class="count">9</h1>
-    <p>Death cases</p>
-  </div>
+
+<div class="table-responsive">
+  <table class="table table-bordered table-dark table-striped text-center" id="tbval">
+    <tr>
+      <th>Country</th>
+      <th>Total Confirmed</th>
+      <th>Total Recovered</th>
+      <th>Total Deaths</th>
+      <th>New Confirmed</th>
+      <th>New Deaths</th>
+      <th>New Recovered</th>
+
+    </tr>
+  </table>
 
 </div>
+
 </section>
 
 <!-- ***************************************** About Section ************************** -->
@@ -88,7 +88,7 @@
 
   <div class="row pt-5">
     <div class="col-lg-6 col-md-6 col-12 p-2">
-      <img src="images/about-corona.jpg" class="img-fluid" alt="about corona">
+      <img src="images/about-corona.jpg" class="img-fluid about_corona" alt="about corona">
     </div>
     <div class="col-lg-6 col-md-6 col-12 p-2">
       <h2>What is COVID-19 (Corona-Virus)</h2>
@@ -257,7 +257,8 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 offset-lg-2 col-12">
-        <form>
+
+        <form action="" method="POST">
           <div class="form-group">
             <label >Username</label>
             <input type="name" class="form-control" name="username" placeholder="name" autocomplete="off" required>
@@ -300,10 +301,10 @@
 
   <div class="form-group">
     <label for="exampleFormControlTextarea1">Example textarea</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="massage"></textarea>
   </div>
 
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary" name="submit">Submit</button>
 </form>
 
       </div>
@@ -312,15 +313,117 @@
 
   </div>
 </div>
+<!-- *********************************** Top Cursor ***************************************** -->
+
+<div class="container scrolltop float-right pr-5">
+  <i class="fas fa-arrow-circle-up fa-2x" onclick="topFunction()" id="myBtn"></i>
+
+</div>
 
 <!-- *************************************** footer ***************************************** -->
 
-<footer class="mt-5">
+<footer class="mt-5 pb-5 pt-5">
   <div class="footer_style text-white text-center container-fluid">
-    <p>Sayaib Sarkar</p>
+    <a href="#" target="blank" class="sourcecode">Designed & Built by Sayaib Sarkar</a>
+
+<div class="">
+  <a href="https://github.com/sayaib" target="blank"><i class="fab fa-github fa-2x"></i></a>
+  <a href="https://in.linkedin.com/in/sayaib-sarkar-847b3b169" target="blank"><i class="fab fa-linkedin-in fa-2x"></i></a>
+  <a href="https://www.sayaibsarkar.ml/" target="blank"><i class="fab fa-chrome fa-2x"></i></a>
+</div>
+<p class="copyright">Language: en | Copyright © 2020, COVID-19, Sayaib Sarkar. All rights reserved.</p>
+
+
+
 
   </div>
 
 </footer>
+
+
+<script type="text/javascript">
+
+
+
+//Get the button
+var mybutton = document.getElementById("myBtn");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+
+
+function fetch(){
+  jQuery.get("https://api.covid19api.com/summary",
+function (data){
+  // console.log(data['Countries'].length);
+  var tbval = document.getElementById('tbval');
+
+  for(var i=1; i<(data['Countries'].length); i++){
+    var x = tbval.insertRow();
+
+    x.insertCell(0);
+    tbval.rows[i].cells[0].innerHTML = data['Countries'][i-1]['Country'];
+    tbval.rows[i].cells[0].style.background = '#79a3b1';
+    tbval.rows[i].cells[0].style.color = '#000000';
+    tbval.rows[i].cells[0].style.fontWeight = "900";
+
+    x.insertCell(1);
+    tbval.rows[i].cells[1].innerHTML = data['Countries'][i-1]['TotalConfirmed'];
+    tbval.rows[i].cells[1].style.background = '#d0e8f2';
+    tbval.rows[i].cells[1].style.color = '#000000';
+
+    x.insertCell(2);
+    tbval.rows[i].cells[2].innerHTML = data['Countries'][i-1]['TotalRecovered'];
+    tbval.rows[i].cells[2].style.background = '#d0e8f2';
+    tbval.rows[i].cells[2].style.color = '#000000';
+
+    x.insertCell(3);
+    tbval.rows[i].cells[3].innerHTML = data['Countries'][i-1]['TotalDeaths'];
+    tbval.rows[i].cells[3].style.background = '#d0e8f2';
+    tbval.rows[i].cells[3].style.color = '#000000';
+
+    x.insertCell(4);
+    tbval.rows[i].cells[4].innerHTML = data['Countries'][i-1]['NewConfirmed'];
+    tbval.rows[i].cells[4].style.background = '#d0e8f2';
+    tbval.rows[i].cells[4].style.color = '#000000';
+
+    x.insertCell(5);
+    tbval.rows[i].cells[5].innerHTML = data['Countries'][i-1]['NewDeaths'];
+    tbval.rows[i].cells[5].style.background = '#d0e8f2';
+    tbval.rows[i].cells[5].style.color = '#000000';
+
+    x.insertCell(6);
+    tbval.rows[i].cells[6].innerHTML = data['Countries'][i-1]['NewRecovered'];
+    tbval.rows[i].cells[6].style.background = '#d0e8f2';
+    tbval.rows[i].cells[6].style.color = '#000000';
+
+
+
+
+
+
+  }
+}
+)
+}
+
+</script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </body>
 </html>
